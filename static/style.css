@@ -544,34 +544,90 @@ body {
 }
 
 @media (max-width: 768px) {
+    /* Container adjustments */
+    .container {
+        padding: 0 1rem;
+    }
+
+    /* Hero section */
     .hero {
         flex-direction: column;
-        padding: 40px 0;
+        padding: 30px 0;
     }
 
     .hero-title {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
 
     .hero-subtitle {
         font-size: 1rem;
     }
 
-    .nav-links {
+    /* Navigation stacking */
+    .navbar-container {
+        flex-direction: column;
         gap: 1rem;
-        font-size: 0.85rem;
     }
 
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.8rem;
+        text-align: center;
+        padding: 0;
+    }
+
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
+
+    /* Typography adjustments */
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Grids stacking vertically */
+    .cards-grid,
+    .avatar-grid,
+    .stats-grid,
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    /* Timer adjustments */
     .timer-display {
         font-size: 2.5rem;
+        min-width: 100%;
     }
 
-    .cards-grid {
-        grid-template-columns: 1fr;
+    .progress-circle {
+        width: 200px;
+        height: 200px;
     }
 
     .cta-buttons {
         flex-direction: column;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
     }
 }
 

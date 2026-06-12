@@ -206,8 +206,13 @@ function updateTimerDisplay(element, current, total) {
 }
 
 async function saveStudySession(duration) {
+    // Update local storage stats
+    const stats = getLocalStats();
+    stats.studyHours += parseFloat((duration / 3600).toFixed(1)); // Convert seconds to hours
+    saveLocalStats(stats);
+
     try {
-        await fetch('/api/save-study-session', {
+        await fetch('/api/study/save-session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -222,6 +227,8 @@ async function saveStudySession(duration) {
 
 async function loadStudyStats() {
     try {
+        const stats = getLocalStats();
+        // Fallback to local stats if needed
         const userData = await loadUserData();
         const todayFocus = document.getElementById('todayFocus');
         const totalSessions = document.getElementById('totalSessions');
@@ -229,19 +236,20 @@ async function loadStudyStats() {
         
         if (todayFocus) {
             const today = new Date().toDateString();
-            const todaySession = userData.study_sessions.filter(s => 
+            const todaySession = userData?.study_sessions?.filter(s => 
                 new Date(s.timestamp).toDateString() === today
-            );
+            ) || [];
             const todayMinutes = todaySession.reduce((acc, s) => acc + s.duration, 0);
             todayFocus.textContent = todayMinutes;
         }
         
         if (totalSessions) {
-            totalSessions.textContent = userData.study_sessions.length;
+            totalSessions.textContent = userData?.study_sessions?.length || 0;
         }
         
         if (weeklyHours) {
-            weeklyHours.textContent = userData.study_hours.toFixed(1);
+            // Using localStorage stat as fallback/primary
+            weeklyHours.textContent = parseFloat(stats.studyHours).toFixed(1);
         }
     } catch (error) {
         console.error('Error loading stats:', error);
@@ -338,11 +346,16 @@ function displayExercises(container, exerciseList) {
 }
 
 async function saveFitnessSession(duration) {
+    // Update local storage stats
+    const stats = getLocalStats();
+    stats.fitnessSessions += 1;
+    saveLocalStats(stats);
+
     try {
         const muscle = document.getElementById('muscleSelector').value;
         const difficulty = document.getElementById('difficultySelector').value;
         
-        await fetch('/api/save-workout-session', {
+        await fetch('/api/fitness/save-session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -358,21 +371,22 @@ async function saveFitnessSession(duration) {
 
 async function loadFitnessStats() {
     try {
+        const stats = getLocalStats();
         const userData = await loadUserData();
         const workoutCount = document.getElementById('workoutCount');
         const totalTime = document.getElementById('totalTime');
         const favoriteGroup = document.getElementById('favoriteGroup');
         
         if (workoutCount) {
-            workoutCount.textContent = userData.fitness_sessions;
+            workoutCount.textContent = stats.fitnessSessions;
         }
         
         if (totalTime) {
-            const totalMinutes = userData.workout_sessions.reduce((acc, s) => acc + s.duration, 0);
+            const totalMinutes = userData?.workout_sessions?.reduce((acc, s) => acc + s.duration, 0) || 0;
             totalTime.textContent = totalMinutes;
         }
         
-        if (favoriteGroup && userData.workout_sessions.length > 0) {
+        if (favoriteGroup && userData?.workout_sessions?.length > 0) {
             const muscles = userData.workout_sessions.map(s => s.muscle_group);
             const favorite = muscles.reduce((a, b, _, arr) =>
                 (arr.filter(v => v === a).length >= arr.filter(v => v === b).length ? a : b)
@@ -394,18 +408,23 @@ function initShopPage() {
             e.preventDefault();
             
             const formData = new FormData();
-            formData.append('name', document.getElementById('productName').value);
-            formData.append('link', document.getElementById('productLink').value);
+            formData.append('product_name', document.getElementById('productName').value);
+            formData.append('product_link', document.getElementById('productLink').value);
             formData.append('description', document.getElementById('productDescription').value);
-            formData.append('image', imageInput.files[0]);
+            formData.append('product_image', imageInput.files[0]);
             
             try {
-                const response = await fetch('/api/upload-product', {
+                const response = await fetch('/api/shop/upload-product', {
                     method: 'POST',
                     body: formData
                 });
                 
                 if (response.ok) {
+                    // Update local storage stats
+                    const stats = getLocalStats();
+                    stats.productsUploaded += 1;
+                    saveLocalStats(stats);
+
                     showNotification('Product uploaded successfully!', 'success');
                     uploadForm.reset();
                     loadProducts();
@@ -471,37 +490,57 @@ async function deleteProduct(id) {
     }
 }
 
+// Local Storage Helper
+function getLocalStats() {
+    return JSON.parse(localStorage.getItem('futureMindStats')) || {
+        avatar: 'lion',
+        studyHours: 0,
+        fitnessSessions: 0,
+        productsUploaded: 0
+    };
+}
+
+function saveLocalStats(stats) {
+    localStorage.setItem('futureMindStats', JSON.stringify(stats));
+}
+
 // Profile Page Functions
 function initProfilePage() {
     const avatarGrid = document.getElementById('avatarGrid');
+    const stats = getLocalStats();
     
     if (avatarGrid) {
+        avatarGrid.innerHTML = ''; // Clear existing
         avatarData.forEach(avatar => {
             const card = document.createElement('div');
             card.className = 'avatar-card';
-            if (avatar.name === state.selectedAvatar) {
+            if (avatar.name === stats.avatar) {
                 card.classList.add('selected');
             }
+            // Use larger font for emoji instead of image block
             card.innerHTML = `
-                <div class="avatar-image">${avatar.emoji}</div>
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">${avatar.emoji}</div>
                 <div class="avatar-name">${avatar.name}</div>
             `;
-            card.addEventListener('click', async () => {
+            
+            card.addEventListener('click', () => {
                 // Remove previous selection
                 document.querySelectorAll('.avatar-card').forEach(c => c.classList.remove('selected'));
                 // Add to clicked
                 card.classList.add('selected');
-                // Save to backend
-                try {
-                    await fetch('/api/set-avatar', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ avatar: avatar.name })
-                    });
-                    showNotification(`Avatar changed to ${avatar.name}!`, 'success');
-                } catch (error) {
-                    console.error('Error setting avatar:', error);
+                
+                // Save to localStorage
+                const currentStats = getLocalStats();
+                currentStats.avatar = avatar.name;
+                saveLocalStats(currentStats);
+                
+                // Update header
+                const selectedAvatarDisplay = document.getElementById('selectedAvatar');
+                if (selectedAvatarDisplay) {
+                    selectedAvatarDisplay.textContent = `${avatar.emoji} ${avatar.name.charAt(0).toUpperCase() + avatar.name.slice(1)}`;
                 }
+                
+                showNotification(`Avatar changed to ${avatar.name}!`, 'success');
             });
             avatarGrid.appendChild(card);
         });
@@ -510,24 +549,22 @@ function initProfilePage() {
     loadProfileStats();
 }
 
-async function loadProfileStats() {
-    try {
-        const userData = await loadUserData();
-        const selectedAvatar = document.getElementById('selectedAvatar');
-        const studyHours = document.getElementById('profileStudyHours');
-        const fitnessSessions = document.getElementById('profileFitnessSessions');
-        const productsUploaded = document.getElementById('profileProductsUploaded');
-        
-        if (selectedAvatar) {
-            const avatar = avatarData.find(a => a.name === userData.avatar);
-            selectedAvatar.textContent = avatar ? `${avatar.emoji} ${avatar.name}` : 'Lion 🦁';
-        }
-        if (studyHours) studyHours.textContent = userData.study_hours.toFixed(1);
-        if (fitnessSessions) fitnessSessions.textContent = userData.fitness_sessions;
-        if (productsUploaded) productsUploaded.textContent = userData.products_uploaded;
-    } catch (error) {
-        console.error('Error loading profile stats:', error);
+function loadProfileStats() {
+    const stats = getLocalStats();
+    
+    const selectedAvatar = document.getElementById('selectedAvatar');
+    const studyHours = document.getElementById('profileStudyHours');
+    const fitnessSessions = document.getElementById('profileFitnessSessions');
+    const productsUploaded = document.getElementById('profileProductsUploaded');
+    
+    if (selectedAvatar) {
+        const avatar = avatarData.find(a => a.name === stats.avatar) || avatarData[0];
+        selectedAvatar.textContent = `${avatar.emoji} ${avatar.name.charAt(0).toUpperCase() + avatar.name.slice(1)}`;
     }
+    
+    if (studyHours) studyHours.textContent = parseFloat(stats.studyHours).toFixed(1);
+    if (fitnessSessions) fitnessSessions.textContent = stats.fitnessSessions;
+    if (productsUploaded) productsUploaded.textContent = stats.productsUploaded;
 }
 
 // Initialize on page load

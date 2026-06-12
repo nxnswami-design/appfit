@@ -182,14 +182,12 @@ function initStudyPage() {
     // YouTube Doubt Solver
     const youtubeBtn = document.getElementById('youtubeSearchBtn');
     const youtubeInput = document.getElementById('youtubeInput');
-    const youtubePreview = document.getElementById('youtubePreview');
     
     if (youtubeBtn) {
         youtubeBtn.addEventListener('click', () => {
             const query = youtubeInput.value.trim();
             if (query) {
-                const url = `https://www.youtube.com/embed/results?search_query=${encodeURIComponent(query)}`;
-                youtubePreview.innerHTML = `<iframe width="100%" height="500" src="https://www.youtube.com/results?search_query=${encodeURIComponent(query)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                // Simply open the search in a new tab
                 window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`, '_blank');
             }
         });

@@ -688,6 +688,29 @@ body {
     .btn {
         width: 100%;
     }
+
+    /* Timer Controls Wrap */
+    .timer-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .timer-controls .btn {
+        flex: 1 1 45%;
+    }
+
+    /* YouTube Doubt Solver & Fitness Search Mobile Fix */
+    .card > div[style*="display: flex"] {
+        flex-direction: column !important;
+    }
+
+    #youtubeInput,
+    #youtubeSearchBtn,
+    #fitnessYoutubeInput,
+    #fitnessYoutubeBtn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
 }
 
 @keyframes slideIn {

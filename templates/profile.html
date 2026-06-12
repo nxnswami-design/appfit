@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - FutureMind</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">FutureMind</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/study">Study</a></li>
+                <li><a href="/fitness">Fitness</a></li>
+                <li><a href="/shop">Shop</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <section class="section" style="text-align: center; padding: 40px 0;">
+            <h1 class="hero-title">Your Profile</h1>
+            <p class="hero-subtitle">Personalize your FutureMind experience</p>
+        </section>
+
+        <!-- Current Avatar Display -->
+        <section class="section">
+            <h2 class="section-title">Your Current Avatar</h2>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 5rem; margin-bottom: 1rem;">
+                    <span id="selectedAvatar">🦁 Lion</span>
+                </div>
+                <p style="color: #b0b0b0;">This is how you're represented in the FutureMind community</p>
+            </div>
+        </section>
+
+        <!-- Avatar Selection -->
+        <section class="section">
+            <h2 class="section-title">Choose Your Avatar</h2>
+            <div class="avatar-grid" id="avatarGrid">
+                <!-- Avatars will be loaded here by JavaScript -->
+            </div>
+            <p style="text-align: center; color: #b0b0b0; margin-top: 2rem;">Click on an avatar to select it. Your choice is saved automatically.</p>
+        </section>
+
+        <!-- Profile Statistics -->
+        <section class="section">
+            <h2 class="section-title">Your Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="profileStudyHours">0</div>
+                    <div class="stat-label">Study Hours</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="profileFitnessSessions">0</div>
+                    <div class="stat-label">Fitness Sessions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="profileProductsUploaded">0</div>
+                    <div class="stat-label">Products Shared</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Information -->
+        <section class="section">
+            <h2 class="section-title">Profile Information</h2>
+            <div class="card">
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: #ff2d95; margin-bottom: 1rem;">About You</h3>
+                    <p style="color: #b0b0b0; line-height: 1.6;">
+                        You're part of the FutureMind community - a dedicated platform for study and fitness success. Your data is automatically saved and secured on your device. Stay consistent, track your progress, and achieve your goals!
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: #ff2d95; margin-bottom: 1rem;">Achievements</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem;">
+                        <div style="text-align: center; padding: 1rem; background: rgba(255, 45, 149, 0.1); border-radius: 10px;">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏆</div>
+                            <small style="color: #b0b0b0;">First Session</small>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: rgba(255, 45, 149, 0.1); border-radius: 10px;">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">📚</div>
+                            <small style="color: #b0b0b0;">Study Streak</small>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: rgba(255, 45, 149, 0.1); border-radius: 10px;">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">💪</div>
+                            <small style="color: #b0b0b0;">Workout Ready</small>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: rgba(255, 45, 149, 0.1); border-radius: 10px;">
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎁</div>
+                            <small style="color: #b0b0b0;">Contributor</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings & Privacy -->
+        <section class="section">
+            <h2 class="section-title">Settings & Privacy</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🔒</div>
+                    <div class="card-title">Privacy</div>
+                    <div class="card-description">Your data stays on your device. We don't share your personal information with anyone.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💾</div>
+                    <div class="card-title">Data Storage</div>
+                    <div class="card-description">All your progress is automatically saved locally. Access it anytime from any browser.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔄</div>
+                    <div class="card-title">Sync</div>
+                    <div class="card-description">Your profile syncs across devices. Log in to access your data everywhere.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚙️</div>
+                    <div class="card-title">Customization</div>
+                    <div class="card-description">Customize your experience with avatars and preferences that match your personality.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">Analytics</div>
+                    <div class="card-description">Track your progress with detailed statistics and insights about your activity.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">Goals</div>
+                    <div class="card-description">Set and track your study and fitness goals with our advanced tracking system.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Tips -->
+        <section class="section">
+            <h2 class="section-title">Quick Tips</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">✨</div>
+                    <div class="card-title">Tip 1: Start Small</div>
+                    <div class="card-description">Begin with 25-minute study sessions and beginner workouts. Consistency matters more than intensity.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">✨</div>
+                    <div class="card-title">Tip 2: Track Progress</div>
+                    <div class="card-description">Check your statistics regularly. Seeing progress is the best motivation to continue.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">✨</div>
+                    <div class="card-title">Tip 3: Share Wins</div>
+                    <div class="card-description">Share your favorite products and tools with the community. Help others succeed too.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">✨</div>
+                    <div class="card-title">Tip 4: Stay Consistent</div>
+                    <div class="card-description">Make study and fitness a daily habit. Build a streak and watch yourself transform.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">✨</div>
+                    <div class="card-title">Tip 5: Rest & Recover</div>
+                    <div class="card-description">Don't overwork yourself. Balance intense sessions with adequate rest for best results.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">✨</div>
+                    <div class="card-title">Tip 6: Explore Features</div>
+                    <div class="card-description">Try all features - YouTube doubt solver, different timers, and all muscle groups.</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>FutureMind Profile</h4>
+                <p style="color: #b0b0b0;">Your personal success hub.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/study">Study</a>
+                    <a href="/fitness">Fitness</a>
+                    <a href="/shop">Shop</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <div class="footer-links">
+                    <a href="#settings">Settings</a>
+                    <a href="#achievements">Achievements</a>
+                    <a href="#statistics">Statistics</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 FutureMind. Your Journey Starts Here.</p>
+        </div>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

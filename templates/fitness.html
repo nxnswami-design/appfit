@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Dashboard - FutureMind</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">FutureMind</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/study">Study</a></li>
+                <li><a href="/fitness">Fitness</a></li>
+                <li><a href="/shop">Shop</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <section class="section" style="text-align: center; padding: 40px 0;">
+            <h1 class="hero-title">Fitness Dashboard</h1>
+            <p class="hero-subtitle">Transform your body with personalized workout plans</p>
+        </section>
+
+        <!-- Fitness Timer -->
+        <section class="section">
+            <h2 class="section-title">Workout Timer</h2>
+            <div class="timer-section">
+                <div class="timer-display" id="fitnessTimerDisplay">30:00</div>
+                <div class="progress-circle">
+                    <div class="progress-text">Let's work out!</div>
+                </div>
+
+                <div class="timer-controls">
+                    <button id="startFitness" class="btn btn-primary">Start Workout</button>
+                    <button id="pauseFitness" class="btn btn-secondary">Pause</button>
+                    <button id="resetFitness" class="btn btn-secondary">Reset</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Difficulty Selector -->
+        <section class="section">
+            <h2 class="section-title">Select Workout Difficulty</h2>
+            <div class="card">
+                <div class="form-group">
+                    <label for="difficultySelector">Choose Difficulty Level:</label>
+                    <select id="difficultySelector">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate" selected>Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Muscle Selector and Exercises -->
+        <section class="section">
+            <h2 class="section-title">Select Muscle Group</h2>
+            <div class="card">
+                <div class="form-group">
+                    <label for="muscleSelector">Choose Muscle Group:</label>
+                    <select id="muscleSelector">
+                        <option value="">-- Select a muscle group --</option>
+                        <option value="chest">Chest</option>
+                        <option value="back">Back</option>
+                        <option value="biceps">Biceps</option>
+                        <option value="triceps">Triceps</option>
+                        <option value="shoulders">Shoulders</option>
+                        <option value="legs">Legs</option>
+                        <option value="abs">Abs</option>
+                        <option value="fullbody">Full Body</option>
+                    </select>
+                </div>
+
+                <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #ff2d95;">Exercises</h3>
+                <div id="exerciseList">
+                    <p style="color: #b0b0b0;">Select a muscle group to see exercises</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- YouTube Fitness Search -->
+        <section class="section">
+            <h2 class="section-title">YouTube Fitness Guide</h2>
+            <div class="card">
+                <p style="margin-bottom: 1rem; color: #b0b0b0;">Search for workout videos and fitness tutorials!</p>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                    <input type="text" id="fitnessYoutubeInput" placeholder="Search for fitness tutorials..." style="flex: 1; padding: 10px 15px; background: rgba(30, 30, 50, 0.8); border: 1px solid rgba(255, 45, 149, 0.3); border-radius: 8px; color: #fff;">
+                    <button id="fitnessYoutubeBtn" class="btn btn-primary">Watch on YouTube</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fitness Statistics -->
+        <section class="section">
+            <h2 class="section-title">Your Fitness Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="workoutCount">0</div>
+                    <div class="stat-label">Workouts Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalTime">0</div>
+                    <div class="stat-label">Total Exercise Time (min)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="favoriteGroup">N/A</div>
+                    <div class="stat-label">Favorite Muscle Group</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fitness Tips -->
+        <section class="section">
+            <h2 class="section-title">Fitness Tips</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">💪</div>
+                    <div class="card-title">Progressive Overload</div>
+                    <div class="card-description">Gradually increase weight or reps. This principle drives muscle growth and strength gains over time.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🥗</div>
+                    <div class="card-title">Nutrition Matters</div>
+                    <div class="card-description">Eat balanced meals with protein. Good nutrition fuels your workouts and aids recovery.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">😴</div>
+                    <div class="card-title">Recovery is Key</div>
+                    <div class="card-description">Get 7-9 hours of sleep. Rest allows your muscles to repair and grow stronger.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💧</div>
+                    <div class="card-title">Stay Hydrated</div>
+                    <div class="card-description">Drink plenty of water. Hydration improves performance and aids muscle recovery.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔄</div>
+                    <div class="card-title">Consistency</div>
+                    <div class="card-description">Work out regularly. Consistency is more important than intensity for long-term gains.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🧘</div>
+                    <div class="card-title">Proper Form</div>
+                    <div class="card-description">Focus on technique. Good form prevents injuries and maximizes muscle engagement.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Muscle Groups Overview -->
+        <section class="section">
+            <h2 class="section-title">Muscle Groups Training Days</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🏋️</div>
+                    <div class="card-title">Monday - Chest</div>
+                    <div class="card-description">Push-ups, bench press, and chest exercises. Focus on form and control.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏋️</div>
+                    <div class="card-title">Tuesday - Back</div>
+                    <div class="card-description">Pull-ups, rows, and back exercises. Build a strong and defined back.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏋️</div>
+                    <div class="card-title">Wednesday - Legs</div>
+                    <div class="card-description">Squats, lunges, and leg exercises. Strengthen your foundation.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏋️</div>
+                    <div class="card-title">Thursday - Shoulders & Abs</div>
+                    <div class="card-description">Shoulder presses and core work. Complete your upper body routine.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏋️</div>
+                    <div class="card-title">Friday - Arms</div>
+                    <div class="card-description">Bicep and tricep exercises. Sculpt bigger, stronger arms.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏋️</div>
+                    <div class="card-title">Full Body Training</div>
+                    <div class="card-description">Combine all muscle groups. Efficient training for busy schedules.</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>FutureMind</h4>
+                <p style="color: #b0b0b0;">Your platform for fitness success.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/study">Study</a>
+                    <a href="/fitness">Fitness</a>
+                    <a href="/shop">Shop</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Features</h4>
+                <div class="footer-links">
+                    <a href="#workout-timer">Workout Timer</a>
+                    <a href="#exercises">Exercises</a>
+                    <a href="#statistics">Statistics</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 FutureMind. Sculpt Your Body, Elevate Your Spirit.</p>
+        </div>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

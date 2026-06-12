@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Dashboard - FutureMind</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">FutureMind</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/study">Study</a></li>
+                <li><a href="/fitness">Fitness</a></li>
+                <li><a href="/shop">Shop</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <section class="section" style="text-align: center; padding: 40px 0;">
+            <h1 class="hero-title">Study Dashboard</h1>
+            <p class="hero-subtitle">Master your focus with intelligent study sessions</p>
+        </section>
+
+        <!-- Study Timer -->
+        <section class="section">
+            <h2 class="section-title">Focus Timer</h2>
+            <div class="timer-section">
+                <div class="timer-display" id="timerDisplay">25:00</div>
+                <div class="progress-circle">
+                    <div class="progress-text" id="progressText">Ready to focus?</div>
+                </div>
+                
+                <div class="timer-modes">
+                    <button class="mode-btn active" data-mode="25">25 Min Focus</button>
+                    <button class="mode-btn" data-mode="50">50 Min Deep Focus</button>
+                    <button class="mode-btn" data-mode="custom">Custom Time</button>
+                </div>
+
+                <div class="timer-controls">
+                    <button id="startStudy" class="btn btn-primary">Start Study</button>
+                    <button id="pauseStudy" class="btn btn-secondary">Pause</button>
+                    <button id="resetStudy" class="btn btn-secondary">Reset</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- YouTube Doubt Solver -->
+        <section class="section">
+            <h2 class="section-title">YouTube Doubt Solver</h2>
+            <div class="card">
+                <p style="margin-bottom: 1rem; color: #b0b0b0;">Stuck on a concept? Search for explanations on YouTube directly!</p>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                    <input type="text" id="youtubeInput" placeholder="Search for your doubt..." style="flex: 1; padding: 10px 15px; background: rgba(30, 30, 50, 0.8); border: 1px solid rgba(255, 45, 149, 0.3); border-radius: 8px; color: #fff;">
+                    <button id="youtubeSearchBtn" class="btn btn-primary">Search on YouTube</button>
+                </div>
+                <div id="youtubePreview"></div>
+            </div>
+        </section>
+
+        <!-- Study Statistics -->
+        <section class="section">
+            <h2 class="section-title">Your Study Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="todayFocus">0</div>
+                    <div class="stat-label">Today's Focus Time (min)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalSessions">0</div>
+                    <div class="stat-label">Total Sessions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="weeklyHours">0</div>
+                    <div class="stat-label">Weekly Focus Hours</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips Section -->
+        <section class="section">
+            <h2 class="section-title">Study Tips</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">Set Clear Goals</div>
+                    <div class="card-description">Define what you want to learn before each session. This keeps you focused and motivated throughout.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⏰</div>
+                    <div class="card-title">Use Pomodoro</div>
+                    <div class="card-description">Work in 25-minute intervals with short breaks. This technique boosts productivity and prevents burnout.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📝</div>
+                    <div class="card-title">Take Notes</div>
+                    <div class="card-description">Write down key points during study. Active note-taking improves retention and understanding.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚫</div>
+                    <div class="card-title">Eliminate Distractions</div>
+                    <div class="card-description">Turn off notifications and find a quiet space. A distraction-free environment is crucial for deep work.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">😴</div>
+                    <div class="card-title">Rest Well</div>
+                    <div class="card-description">Take breaks every 25 minutes. Get enough sleep for better memory consolidation and focus.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔄</div>
+                    <div class="card-title">Spaced Repetition</div>
+                    <div class="card-description">Review material at increasing intervals. This powerful technique locks knowledge into long-term memory.</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>FutureMind</h4>
+                <p style="color: #b0b0b0;">Your platform for study success.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/study">Study</a>
+                    <a href="/fitness">Fitness</a>
+                    <a href="/shop">Shop</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Features</h4>
+                <div class="footer-links">
+                    <a href="#study-timer">Study Timer</a>
+                    <a href="#doubt-solver">Doubt Solver</a>
+                    <a href="#statistics">Statistics</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 FutureMind. Elevate Your Mind.</p>
+        </div>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
